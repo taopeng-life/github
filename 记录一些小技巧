@@ -1,0 +1,15 @@
+递归查找某个目录下包含关键字的文件
+grep -r 关键字
+grep -r -G "^\$sql="正则递归匹配以$sql=开头的行
+-------------------------perl-------------------------
+root@Kodachi:~# perl -MCPAN -e shell
+cpan[1]> o conf
+查看配置文件路径
+$CPAN::Config options from /root/.cpan/CPAN/MyConfig.pm:
+root@Kodachi:~# vi .cpan/CPAN/MyConfig.pm
+使用说明
+修改Config.pm文件中的urllist值
+'urllist' => [q[http://mirrors.163.com/cpan/]],
+------------------------------------------------------
+查询域名的DNS TXT记录的命令
+nslookup -q=TXT yourdomain.com

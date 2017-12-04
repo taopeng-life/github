@@ -1,0 +1,14 @@
+nmap的基本扫描 
+
+TCP connect()端口扫描(-sT参数)。
+
+ TCP同步(SYN)端口扫描(-sS参数)。
+
+ UDP端口扫描(-sU参数)。
+
+ Ping扫描(-sP参数)。
+/usr/local/share/nmap/ 脚本漏洞
+
+
+
+
