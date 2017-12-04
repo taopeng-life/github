@@ -71,7 +71,7 @@ from lib.core.target import setupTargetEnv
 
 def _selectInjection():
     """
-    注入位置、参数和类型的选择函数
+    注入请求方法（get、post）、注入参数（注入点）和注入类型（单引号）的选择函数
     """
 
     points = {}
@@ -95,7 +95,7 @@ def _selectInjection():
         kb.injection = kb.injections[0]
 
     elif len(points) > 1:
-        message = u"有多个注入点，请选择一个进行注入:\n"
+        message = u"检测到多个注入点，请选择一个进行注入:\n"
 
         points = []
 
@@ -109,15 +109,15 @@ def _selectInjection():
                 points.append(point)
                 ptype = PAYLOAD.PARAMETER[ptype] if isinstance(ptype, int) else ptype
 
-                message += "[%d] place: %s, parameter: " % (i, place)
-                message += "%s, type: %s" % (parameter, ptype)
+                message += u"[%d] http(s)请求方法: %s, 注入参数: " % (i, place)
+                message += u"%s, 注入类型: %s" % (parameter, ptype)
 
                 if i == 0:
-                    message += " (default)"
+                    message += u" (默认)"
 
                 message += "\n"
 
-        message += "[q] Quit"
+        message += u"[q] 退出"
         choice = readInput(message, default='0').upper()
 
         if choice.isdigit() and int(choice) < len(kb.injections) and int(choice) >= 0:
@@ -261,7 +261,7 @@ def start():
 
     if conf.configFile and not kb.targets:
         errMsg = u"您没有正确编辑配置文件，设置 "
-        errMsg += u"目标网址，目标清单或Google dork笨蛋"
+        errMsg += u"目标网址，目标清单或Google dork"
         logger.error(errMsg)
         return False
 
@@ -276,11 +276,11 @@ def start():
         try:
 
             if conf.checkInternet:
-                infoMsg = "[信息] 检查互联网连接"
+                infoMsg = u"[信息] 检查互联网连接"
                 logger.info(infoMsg)
 
                 if not checkInternet():
-                    warnMsg = "[%s] [警告] 没有检测到连接" % time.strftime("%X")
+                    warnMsg = u"[%s] [警告] 没有检测到连接" % time.strftime("%X")
                     dataToStdout(warnMsg)
 
                     while not checkInternet():
@@ -345,7 +345,7 @@ def start():
                     if conf.method == HTTPMETHOD.GET and targetUrl.find("?") == -1:
                         continue
 
-                    message += "\n你想测试这个表单吗? [Y/n/q] "
+                    message += u"\n你想测试这个表单吗? [Y/n/q] "
                     choice = readInput(message, default='Y').upper()
 
                     if choice == 'N':
@@ -488,7 +488,7 @@ def start():
                         elif parameter == conf.csrfToken:
                             testSqlInj = False
 
-                            infoMsg = "跳过anti-CSRF token参数'%s'" % parameter
+                            infoMsg = u"跳过anti-CSRF token参数'%s'" % parameter
                             logger.info(infoMsg)
 
                         # 忽略--level < 4 的会话类参数

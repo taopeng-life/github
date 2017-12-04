@@ -1110,12 +1110,12 @@ class Connect(object):
                 kb.responseTimes.setdefault(kb.responseTimeMode, [])
 
                 if conf.tor:
-                    warnMsg = "强烈建议避免使用'--tor'开关进行基于时间的注入，"
-                    warnMsg += "因为它的延迟时间很长"
+                    warnMsg = u"强烈建议避免使用'--tor'选项进行基于时间的注入，"
+                    warnMsg += u"因为它的延迟时间很长"
                     singleTimeWarnMessage(warnMsg)
 
-                warnMsg = "[%s] [WARNING] %s基于时间的比较需要" % (time.strftime("%X"), "(case) " if kb.responseTimeMode else "")
-                warnMsg += "较大的统计模型，请稍候"
+                warnMsg = u"[%s] [WARNING] %s基于时间的比较需要" % (time.strftime("%X"), "(case) " if kb.responseTimeMode else "")
+                warnMsg += u"较大的统计模型，请稍候"
                 dataToStdout(warnMsg)
 
                 while len(kb.responseTimes[kb.responseTimeMode]) < MIN_TIME_RESPONSES:
@@ -1123,7 +1123,7 @@ class Connect(object):
                     Connect.queryPage(value=value, content=True, raise404=False)
                     dataToStdout('.')
 
-                dataToStdout(" (done)\n")
+                dataToStdout(u" (完成)\n")
 
             elif not kb.testMode:
                 warnMsg = "it is very important to not stress the network connection "
