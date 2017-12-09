@@ -3,6 +3,7 @@ if ! [ -e ~/.recon-directory ]; then
 else
 	directory=$(cat ~/.recon-directory)
 
-	git -C "$directory" pull --rebase
+	git -C "$directory" pull
 	git -C "$directory" push
 fi
+-

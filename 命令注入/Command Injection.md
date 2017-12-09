@@ -63,3 +63,6 @@ ls${IFS}-la
 ```
 {ls,-la}
 ```
+
+命令注入突破长度限制
+http://www.freebuf.com/articles/web/154453.html
