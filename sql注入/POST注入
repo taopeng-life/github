@@ -33,7 +33,7 @@ curl 'http://localhost/sqltest.php' -d '1'
 
 这些语句拼接到数据库语句中，完全不能执行。
 
-正确的请求应该是加入一个或略url转义参数：
+正确的请求应该是加入一个省略url转义参数：
 
 ./sqlmap.py -u 'http://localhost/sqltest.php' --data="*" --skip-urlencode
 

