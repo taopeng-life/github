@@ -120,7 +120,7 @@ BLOCKED_IP_REGEX = r"(?i)(\A|\b)ip\b.*\b(banned|blocked|block list|firewall)"
 CONCAT_ROW_DELIMITER = ','
 CONCAT_VALUE_DELIMITER = '|'
 
-# 用于基于时间的查询延迟检查的系数（必须> = 7）
+# 用于基于时间的查询延迟检查的系数（必须 >= 7）
 TIME_STDEV_COEFF = 7
 
 # 其甚至可以被视为延迟最小响应时间（不是一个完整的要求）
@@ -529,7 +529,7 @@ WAF_ATTACK_VECTORS = (
 # 用于字典攻击阶段的状态表示
 ROTATING_CHARS = ('\\', '|', '|', '/', '-')
 
-# BigArray对象使用的大致块长度(以字节为单位)(只有最后一个块和缓存的块被保存在内存中)
+# BigArray对象使用的最大块长度(以字节为单位)(只有最后一个块和缓存的块被保存在内存中)
 BIGARRAY_CHUNK_SIZE = 1024 * 1024
 
 # socket预连接的最大数量
@@ -750,7 +750,7 @@ METASPLOIT_SESSION_TIMEOUT = 120
 # Reference: http://www.postgresql.org/docs/9.0/static/catalog-pg-largeobject.html
 LOBLKSIZE = 2048
 
-# Suffix used to mark variables having keyword names
+# 用于标记具有关键字名称的变量的后缀
 EVALCODE_KEYWORD_SUFFIX = "_KEYWORD"
 
 # Reference: http://www.cookiecentral.com/faq/#3.5

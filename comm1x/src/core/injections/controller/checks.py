@@ -35,11 +35,13 @@ def assessment_phase():
     return "exploitation"
 
 """
-Check current assessment phase.
+检查当前注入等级
 """
 def check_injection_level():
-  # Checking testable parameters for cookies
+  # 检查Cookie中的可测试参数
   if menu.options.cookie:
+    # Cookie值中的默认分隔符
+    # DEFAULT_COOKIE_DELIMITER = ';'
     if settings.COOKIE_DELIMITER in menu.options.cookie:
       cookies = menu.options.cookie.split(settings.COOKIE_DELIMITER)
       for cookie in cookies:
@@ -48,13 +50,13 @@ def check_injection_level():
     elif menu.options.cookie.split("=")[0] in menu.options.test_parameter:
       menu.options.level = 2
 
-  # Checking testable parameters for user-agent / referer  
+  # 检查user-agent / referer的可测试参数
   if "user-agent" in menu.options.test_parameter or \
      "referer" in menu.options.test_parameter:
     menu.options.level = 3
 
 """
-Procced to the next attack vector.
+继续下一个攻击矢量。
 """
 def next_attack_vector(technique, go_back):
   while True:
@@ -67,7 +69,7 @@ def next_attack_vector(technique, go_back):
     if len(next_attack_vector) == 0:
        next_attack_vector = "y"
     if next_attack_vector in settings.CHOICE_YES:
-      # Check injection state
+      # 检查注入状态
       assessment_phase()
       return True
     elif next_attack_vector in settings.CHOICE_NO:
@@ -80,7 +82,7 @@ def next_attack_vector(technique, go_back):
       pass
 
 """
-Fix single / double quote escaping.
+修复单/双引号转义。
 """
 def escaped_cmd(cmd):
   if "\\\"" in cmd :
@@ -92,7 +94,7 @@ def escaped_cmd(cmd):
   return cmd
 
 """
-Check 'os_shell' options
+检查“os_shell”选项
 """
 def check_os_shell_options(cmd, technique, go_back, no_result): 
   if cmd in settings.SHELL_OPTIONS:
@@ -107,14 +109,12 @@ def check_os_shell_options(cmd, technique, go_back, no_result):
       return cmd
 
 """
-Procced with file-based semiblind command injection technique,
-once the user provides the path of web server's root directory.
+一旦用户提供Web服务器根目录的路径，继续使用基于文件的半盲命令注入技术。
 """
 def procced_with_file_based_technique(): 
   while True:
     if not menu.options.batch:
-      question_msg = "Do you want to procced with the (semi-blind) "
-      question_msg += "file-based injection technique? [Y/n] > "
+      question_msg = u"你想继续使用基于文件的（半盲）注入技术吗？ [Y/n] > "
       sys.stdout.write(settings.print_question_msg(question_msg))
       enable_fb = sys.stdin.readline().replace("\n","").lower()
     else:
@@ -133,7 +133,7 @@ def procced_with_file_based_technique():
       pass
 
 """
-Check 'reverse_tcp' options
+检查'reverse_tcp'选项
 """
 def check_reverse_tcp_options(reverse_tcp_option):
   if reverse_tcp_option == False:
@@ -146,7 +146,7 @@ def check_reverse_tcp_options(reverse_tcp_option):
     return 3
 
 """
-Check 'bind_tcp' options
+检查“bind_tcp”选项
 """
 def check_bind_tcp_options(bind_tcp_option):
   if bind_tcp_option == False:
@@ -159,16 +159,15 @@ def check_bind_tcp_options(bind_tcp_option):
     return 3
 
 """
-Ignore error messages and continue the tests.
+忽略错误消息并继续测试。
 """
 def continue_tests(err):
-  # If defined "--ignore-401" option, ignores HTTP Error 401 (Unauthorized) 
-  # and continues tests without providing valid credentials.
+  # 如果定义了“--ignore-401”选项，则忽略HTTP错误401（未授权），并继续测试而不提供有效凭证。
   if menu.options.ignore_401:
     settings.WAF_ENABLED = True
     return True
 
-  # Possible WAF/IPS/IDS
+  # 前方可能有 WAF/IPS/IDS
   if (str(err.code) == settings.FORBIDDEN_ERROR or settings.NOT_ACCEPTABLE_ERROR) and \
     not menu.options.skip_waf:
     # Check if "--skip-waf" option is defined 

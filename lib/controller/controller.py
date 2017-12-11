@@ -260,7 +260,7 @@ def start():
         kb.targets.add((conf.url, conf.method, conf.data, conf.cookie, None))
 
     if conf.configFile and not kb.targets:
-        errMsg = u"您没有正确编辑配置文件，设置 "
+        errMsg = u"您没有正确编辑配置文件，请设置 "
         errMsg += u"目标网址，目标清单或Google dork"
         logger.error(errMsg)
         return False
